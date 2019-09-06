@@ -23,4 +23,7 @@ var matches = JSON.parse(content1);
 var deliveries = JSON.parse(content2);
 
 //Question 1: Number of matches played per year for all the years in IPL
-console.log("Number of matches played per year:\n",ipl.matchesPlayed(matches));
+console.log("\n\n\nNumber of matches played per year:\n", ipl.matchesPlayed(matches));
+
+//Question 2: Number of matches won of per team per year in IPL
+console.log("\n\n\nNumber of matches won of per team per year:\n", ipl.perTeamWins(matches));
