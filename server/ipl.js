@@ -8,20 +8,16 @@ function matchesPlayed(matches) {
 
 //Question 2: Number of matches won of per team per year in IPL
 function perTeamWins(matches) {
-    var matchesWon = {};
-    matches.forEach(match => {
-    var year = match.season;
-    var wTeam = match.winner;
-    if (matchesWon[year] === undefined) {
-      matchesWon[year] = {};
-      matchesWon[year][wTeam] = 1;
-    } else
-      matchesWon[year][wTeam] = matchesWon[year][wTeam]
-        ? ++matchesWon[year][wTeam]
-        : 1;
-  });
-  return matchesWon;
-}
+    return matches.reduce((matchesWon, match) => {
+      var year = match.season;
+      var wTeam = match.winner;
+      if (!matchesWon[year]) {
+        matchesWon[year] = {};
+        matchesWon[year][wTeam] = 1;
+      } else matchesWon[year][wTeam] = (matchesWon[year][wTeam] || 0) + 1;
+      return matchesWon;
+    }, {});
+  }
 
 module.exports = {
   matchesPlayed: matchesPlayed,
