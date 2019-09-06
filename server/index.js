@@ -22,4 +22,5 @@ var content2 = fs.readFileSync("../input/parsed/deliveries.json");
 var matches = JSON.parse(content1);
 var deliveries = JSON.parse(content2);
 
-ipl.matchesPlayed(matches);
+//Question 1: Number of matches played per year for all the years in IPL
+console.log("Number of matches played per year:\n",ipl.matchesPlayed(matches));
