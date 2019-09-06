@@ -27,3 +27,6 @@ console.log("\n\n\nNumber of matches played per year:\n", ipl.matchesPlayed(matc
 
 //Question 2: Number of matches won of per team per year in IPL
 console.log("\n\n\nNumber of matches won of per team per year:\n", ipl.perTeamWins(matches));
+
+//Question 3: Extra runs conceded per team in 2016
+console.log("\n\n\nExtra runs conceded per team in 2016:\n", ipl.extras(matches, deliveries));
