@@ -30,3 +30,7 @@ console.log("\n\n\nNumber of matches won of per team per year:\n", ipl.perTeamWi
 
 //Question 3: Extra runs conceded per team in 2016
 console.log("\n\n\nExtra runs conceded per team in 2016:\n", ipl.extras(matches, deliveries));
+
+// Question 4: Top 10 economical bowlers in 2015
+console.log("\n\n\nTop 10 economical bowlers in 2015:");
+ipl.top10BowlersbyEconomy(matches, deliveries);
