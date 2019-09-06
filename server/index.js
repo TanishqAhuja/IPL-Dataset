@@ -33,3 +33,12 @@ console.log("\n\n\nExtra runs conceded per team in 2016:\n", ipl.extras(matches,
 
 // Question 4: Top 10 economical bowlers in 2015
 console.log("\n\n\nTop 10 economical bowlers in 2015:\n", ipl.top10BowlersbyEconomy(matches, deliveries));
+
+fs.writeFileSync("../output/matchesPlayedPerYear.json", 
+JSON.stringify(ipl.matchesPlayed(matches)));
+fs.writeFileSync("../output/matchesWonPerTeamPerYear.json", 
+JSON.stringify(ipl.perTeamWins(matches)));
+fs.writeFileSync("../output/extraRunsConcededPerTeam2016.json", 
+JSON.stringify(ipl.extras(matches, deliveries)));
+fs.writeFileSync("../output/top10EconomicalBowlers2015.json", 
+JSON.stringify(ipl.top10BowlersbyEconomy(matches, deliveries)));
