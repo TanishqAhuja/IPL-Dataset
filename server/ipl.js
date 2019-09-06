@@ -36,55 +36,51 @@ function extras(matches, deliveries) {
 }
 
 // Question 4: Top 10 economical bowlers in 2015
-function bowlersEconomy(matches, deliveries) {
-    var bowlers = {};
-    var maxId = -Infinity;
-    var minId = Infinity;
-    matches.forEach(match => {
-        if (match.season === "2015") {
-            let id = parseInt(match.id);
-            if (id > maxId) maxId = id;
-            if (id < minId) minId = id;
-        }
-    });
-    deliveries.forEach(delivery => {
-        let id = parseInt(delivery.match_id);
-        let name = delivery.bowler;
-        let totalRuns =
-            parseInt(delivery.total_runs) -
-            parseInt(delivery.bye_runs) -
-            parseInt(delivery.legbye_runs);
-        if (id <= maxId && id >= minId) {
-            if (bowlers[name] === undefined) {
-                bowlers[name] = {};
-                bowlers[name]["runs"] = totalRuns;
-                if (delivery.wide_runs == "0" && delivery.noball_runs == "0")
-                    bowlers[name]["balls"] = 1;
-                else bowlers[name]["balls"] = 0;
-            } else {
-                bowlers[name]["runs"] += totalRuns;
-                if (delivery.wide_runs == "0" && delivery.noball_runs == "0")
-                    bowlers[name]["balls"]++;
-            }
-        }
-    });
-    for (bowler in bowlers) {
-        bowlers[bowler]["overs"] = bowlers[bowler].balls / 6;
-        bowlers[bowler]["economy"] = bowlers[bowler].runs / bowlers[bowler].overs;
-    }
-    var sortable = Object.entries(bowlers).sort(
-        (a, b) => a[1]["economy"] - b[1]["economy"]
-    );
-    for (var i = 0; i < 10; i++) {
-        console.log(sortable[i][0] + ": " + sortable[i][1]["economy"]);
-    }
+function top10BowlersbyEconomy(matches, deliveries) {
+    return Object.entries(
+        deliveries
+            .filter(delivery =>
+                matches
+                    .filter(match => match.season === "2015")
+                    .map(match => match.id)
+                    .includes(delivery.match_id)
+            )
+            .reduce((bowlingStats, delivery) => {
+                let name = delivery.bowler;
+                let totalRuns =
+                    parseInt(delivery.total_runs) -
+                    parseInt(delivery.bye_runs) -
+                    parseInt(delivery.legbye_runs);
+                bowlingStats[name] = bowlingStats[name] || {};
+                bowlingStats[name]["runsConceded"] =
+                    (bowlingStats[name]["runsConceded"] || 0) + totalRuns;
+                if (delivery.wide_runs == "0" && delivery.noball_runs == "0") {
+                    bowlingStats[name]["ballsBowled"] =
+                        (bowlingStats[name]["ballsBowled"] || 0) + 1;
+                }
+                return bowlingStats;
+            }, {})
+    )
+        .map(stat => {
+            stat[1]["overs"] = stat[1].ballsBowled / 6;
+            stat[1]["economy"] = stat[1].runsConceded / stat[1].overs;
+            return stat;
+        })
+        .sort((a, b) => a[1]["economy"] - b[1]["economy"])
+        .reduce((finalStats, stat) => {
+            var statObj = {};
+            statObj["name"] = stat[0];
+            statObj["economy"] = stat[1]["economy"];
+            finalStats.push(statObj);
+            return finalStats;
+        }, [])
+        .slice(0, 10);
 }
-
 
 
 module.exports = {
     matchesPlayed: matchesPlayed,
     perTeamWins: perTeamWins,
     extras: extras,
-    top10BowlersbyEconomy: bowlersEconomy
+    top10BowlersbyEconomy: top10BowlersbyEconomy
 };
