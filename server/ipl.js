@@ -11,23 +11,29 @@ function perTeamWins(matches) {
     return matches.reduce((matchesWon, match) => {
         var year = match.season;
         var wTeam = match.winner;
-        if (!matchesWon[year]) {
-            matchesWon[year] = {};
-            matchesWon[year][wTeam] = 1;
-        } else matchesWon[year][wTeam] = (matchesWon[year][wTeam] || 0) + 1;
+        if (wTeam != '') {
+            if (!matchesWon[year]) {
+                matchesWon[year] = {};
+                matchesWon[year][wTeam] = 1;
+            } else matchesWon[year][wTeam] = (matchesWon[year][wTeam] || 0) + 1;
+        }
         return matchesWon;
     }, {});
 }
 
-//Question 3: Extra runs conceded per team in 2016
-function extras(matches, deliveries) {
+function idUtil(matches, deliveries, year) {
     return deliveries
-        .filter(delivery =>
-            matches
-                .filter(match => match.season === "2016")
+        .filter(delivery => matches
+                .filter(match => match.season === year)
                 .map(match => match.id)
                 .includes(delivery.match_id)
         )
+}
+
+
+//Question 3: Extra runs conceded per team in 2016
+function extras(matches, deliveries, year) {
+    return idUtil(matches, deliveries, year)
         .reduce((extraRuns, delivery) => {
             extraRuns[delivery.bowling_team] =
                 (extraRuns[delivery.bowling_team] || 0) + parseInt(delivery.extra_runs);
@@ -36,15 +42,9 @@ function extras(matches, deliveries) {
 }
 
 // Question 4: Top 10 economical bowlers in 2015
-function top10BowlersbyEconomy(matches, deliveries) {
+function top10BowlersbyEconomy(matches, deliveries, year) {
     return Object.entries(
-        deliveries
-            .filter(delivery =>
-                matches
-                    .filter(match => match.season === "2015")
-                    .map(match => match.id)
-                    .includes(delivery.match_id)
-            )
+        idUtil(matches, deliveries, year)
             .reduce((bowlingStats, delivery) => {
                 let name = delivery.bowler;
                 let totalRuns =
