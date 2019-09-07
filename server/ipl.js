@@ -67,6 +67,7 @@ function top10BowlersbyEconomy(matches, deliveries, year) {
             return stat;
         })
         .sort((a, b) => a[1]["economy"] - b[1]["economy"])
+        .slice(0, 10)
         .reduce((finalStats, stat) => {
             var statObj = {};
             statObj["name"] = stat[0];
@@ -74,7 +75,6 @@ function top10BowlersbyEconomy(matches, deliveries, year) {
             finalStats.push(statObj);
             return finalStats;
         }, [])
-        .slice(0, 10);
 }
 
 
