@@ -1,0 +1,52 @@
+[
+    {
+        "id": "1",
+        "season": "2017",
+        "winner": "team A"
+    },
+    {
+        "id": "2",
+        "season": "2017",
+        "winner": "team B"
+    },
+    {
+        "id": "3",
+        "season": "2016",
+        "winner": "team A"
+    },
+    {
+        "id": "4",
+        "season": "2016",
+        "winner": "team B"
+    },
+    {
+        "id": "5",
+        "season": "2016",
+        "winner": "team B"
+    },
+    {
+        "id": "6",
+        "season": "2016",
+        "winner": "team A"
+    },
+    {
+        "id": "7",
+        "season": "2015",
+        "winner": "team A"
+    },
+    {
+        "id": "8",
+        "season": "2015",
+        "winner": "team B"
+    },
+    {
+        "id": "9",
+        "season": "2015",
+        "winner": "team A"
+    },
+    {
+        "id": "10",
+        "season": "2014",
+        "winner": "team B"
+    }
+]
