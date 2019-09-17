@@ -155,4 +155,4 @@ function showGraph(myRadio) {
   }
 
   document.getElementById(id).style.display = 'block';
-}
+};
